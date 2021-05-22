@@ -13,6 +13,18 @@
         dest: ~/.config/alacritty
         state: link
 
+    - name: symlink gitconfig
+      file:
+        src: "{{dotfiles}}/git/gitconfig"
+        dest: ~/.gitconfig
+        state: link
+
+    - name: symlink hammerspoon directory
+      file:
+        src: "{{dotfiles}}/hammerspoon"
+        dest: ~/.hammerspoon
+        state: link
+
     - name: symlink karabiner directory
       file:
         src: "{{dotfiles}}/karabiner"
@@ -25,10 +37,10 @@
         dest: ~/.config/nvim
         state: link
 
-    - name: symlink starship.conf
+    - name: symlink starship directory
       file:
-        src: "{{dotfiles}}/starship/starship.toml"
-        dest: ~/.config/starship.toml
+        src: "{{dotfiles}}/starship"
+        dest: ~/.config/starship
         state: link
 
     - name: symlink tmux directory
@@ -40,7 +52,7 @@
     - name: symlink tmux.conf
       file:
         src: ~/.config/tmux/tmux.conf
-        dest: ~/tmux.conf
+        dest: ~/.tmux.conf
         state: link
 
     - name: symlink yabai directory
