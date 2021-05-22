@@ -1,0 +1,114 @@
+---
+- name: Setup symlinks
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    dotfiles: ~/git-home/dotfiles
+
+  tasks:
+    - name: symlink alacritty directory
+      file:
+        src: "{{dotfiles}}/alacritty"
+        dest: ~/.config/alacritty
+        state: link
+
+    - name: symlink karabiner directory
+      file:
+        src: "{{dotfiles}}/karabiner"
+        dest: ~/.config/karabiner
+        state: link
+
+    - name: symlink neovim directory
+      file:
+        src: "{{dotfiles}}/nvim"
+        dest: ~/.config/nvim
+        state: link
+
+    - name: symlink starship.conf
+      file:
+        src: "{{dotfiles}}/starship/starship.toml"
+        dest: ~/.config/starship.toml
+        state: link
+
+    - name: symlink tmux directory
+      file:
+        src: "{{dotfiles}}/tmux"
+        dest: ~/.config/tmux
+        state: link
+
+    - name: symlink tmux.conf
+      file:
+        src: ~/.config/tmux/tmux.conf
+        dest: ~/tmux.conf
+        state: link
+
+    - name: symlink yabai directory
+      file:
+        src: "{{dotfiles}}/yabai"
+        dest: ~/.config/yabai
+        state: link
+
+    - name: symlink yabairc
+      file:
+        src: ~/.config/yabai/yabairc
+        dest: ~/.yabairc
+        state: link
+
+    - name: symlink zsh directory
+      file:
+        src: "{{dotfiles}}/zsh"
+        dest: ~/.config/zsh
+        state: link
+
+    - name: symlink zshrc
+      file:
+        src: ~/.config/zsh/zshrc
+        dest: ~/.zshrc
+        state: link
+
+- name: Install Homebrew Packages 
+  hosts: localhost
+  gather_facts: false
+  tasks: 
+    - name: Update Homebrew
+      homebrew:
+        update_homebrew: true
+
+    - name: Install Homebrew casks
+      homebrew_cask:
+        package:
+          - alacritty
+          - alfred
+          - font-fira-code-nerd-font
+          - hammerspoon
+          - karabiner-elements
+          - homebrew/cask-versions/powershell-preview
+        state: latest
+
+    - name: Install Homebrew packages from HEAD
+      homebrew:
+        package:
+          - neovim
+          - koekeishiya/formulae/yabai
+        state: head
+
+    - name: Install Homebrew packages
+      homebrew:
+        package:
+          - ansible
+          - azure-cli
+          - bash-completion
+          - git
+          - node
+          - readline
+          - starship 
+          - tmux
+          - z
+          - zsh
+          - zsh-autosuggestions
+          - zsh-completions
+          - zsh-history-substring-search
+          - zsh-syntax-highlighting
+        state: latest
+
