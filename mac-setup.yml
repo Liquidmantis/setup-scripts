@@ -1,10 +1,11 @@
 ---
 - name: Setup symlinks
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
 
   vars:
     dotfiles: ~/git-home/dotfiles
+    isMacOs: ansible_facts['distribution'] != 'MacOSX'
 
   tasks:
     - name: symlink alacritty directory
@@ -26,6 +27,7 @@
         state: link
 
     - name: symlink karabiner directory
+      when: isMacOs
       file:
         src: "{{dotfiles}}/karabiner"
         dest: ~/.config/karabiner
@@ -56,12 +58,14 @@
         state: link
 
     - name: symlink yabai directory
+      when: isMacOs
       file:
         src: "{{dotfiles}}/yabai"
         dest: ~/.config/yabai
         state: link
 
     - name: symlink yabairc
+      when: isMacOs
       file:
         src: ~/.config/yabai/yabairc
         dest: ~/.yabairc
@@ -81,13 +85,19 @@
 
 - name: Install Homebrew Packages 
   hosts: localhost
-  gather_facts: false
+  gather_facts: true
+
+  vars:
+    isMacOs: "{{true if ansible_facts['distribution'] == 'MacOSX' else false}}"
+
   tasks: 
     - name: Update Homebrew
+      when: isMacOs
       homebrew:
         update_homebrew: true
 
     - name: Install Homebrew casks
+      when: isMacOs
       homebrew_cask:
         package:
           - alacritty
@@ -99,6 +109,7 @@
         state: latest
 
     - name: Install Homebrew packages from HEAD
+      when: isMacOs
       homebrew:
         package:
           - neovim
@@ -106,12 +117,14 @@
         state: head
 
     - name: Install Homebrew packages
+      when: isMacOs
       homebrew:
         package:
           - ansible
           - azure-cli
           - bash-completion
           - git
+          - jq
           - node
           - readline
           - starship 
