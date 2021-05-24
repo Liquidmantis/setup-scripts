@@ -5,7 +5,7 @@
 
   vars:
     dotfiles: ~/git-home/dotfiles
-    isMacOs: ansible_facts['distribution'] != 'MacOSX'
+    isMacOs: ansible_facts['distribution'] == 'MacOSX'
 
   tasks:
     - name: symlink alacritty directory
