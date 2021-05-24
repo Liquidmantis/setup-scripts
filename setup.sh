@@ -10,7 +10,7 @@ fi
 echo "Checking if Ansible is already installed..."
 which -s ansible
 if [[ $? != 0 ]] ; then
-  echo "Homebrew not found.  Installing..."
+  echo "Ansible not found.  Installing..."
   brew update && brew install ansible
 fi
 
