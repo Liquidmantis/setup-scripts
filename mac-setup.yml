@@ -1,4 +1,26 @@
 ---
+- name: Initialize Environment
+  hosts: localhost
+
+  tasks:
+    - name: Create Dropbox directory
+      file:
+        path: ~/Dropbox
+        state: directory
+
+    - name: Create git-home source directory
+      file:
+        path: ~/Dropbox/git-home
+        state: directory
+
+    - name: Clone dotfiles repo
+      git:
+        repo: https://github.com/Liquidmantis/dotfiles
+        dest: ~/Dropbox/git-home/dotfiles
+
+  # TODO: generate SSH key
+  # TODO: upload SSH key to github
+
 - name: Setup symlinks
   hosts: localhost
   gather_facts: true
