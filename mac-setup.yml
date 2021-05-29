@@ -13,6 +13,12 @@
         path: ~/Dropbox/git-home
         state: directory
 
+    - name: Create git-home symlink
+      file:
+        src: ~/Dropbox/git-home
+        dest: ~/git-home
+        state: link
+
     - name: Clone dotfiles repo
       git:
         repo: https://github.com/Liquidmantis/dotfiles
