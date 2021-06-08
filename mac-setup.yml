@@ -8,6 +8,17 @@
         path: ~/Dropbox
         state: directory
 
+    - name: Create notes directory
+      file:
+        path: ~/Dropbox/documents/notes
+        state: directory
+          
+    - name: Create notes symlink
+      file:
+        src: ~/Dropbox/documents/notes
+        dest: ~/notes
+        state: link
+
     - name: Create git-home source directory
       file:
         path: ~/Dropbox/git-home
@@ -120,19 +131,14 @@
 
   tasks: 
     - name: Update Homebrew
-      when: isMacOs
       homebrew:
         update_homebrew: true
 
-    - name: Install Homebrew casks
-      when: isMacOs
+    - name: Install common Homebrew casks
       homebrew_cask:
         package:
           - alacritty
-          - alfred
           - font-fira-code-nerd-font
-          - hammerspoon
-          - karabiner-elements
           - homebrew/cask-versions/powershell-preview
         state: latest
 
@@ -141,16 +147,15 @@
       homebrew:
         package:
           - neovim
-          - koekeishiya/formulae/yabai
         state: head
 
-    - name: Install Homebrew packages
-      when: isMacOs
+    - name: Install common Homebrew packages
       homebrew:
         package:
           - ansible
           - azure-cli
           - bash-completion
+          - exa
           - git
           - jq
           - node
@@ -165,3 +170,19 @@
           - zsh-syntax-highlighting
         state: latest
 
+    - name: Install Mac Homebrew casks 
+      when: isMacOs
+      homebrew_cask:
+        package:
+          - alacritty
+          - alfred
+          - hammerspoon
+          - karabiner-elements
+        state: latest
+
+    - name: Install Mac Homebrew packages from HEAD
+      when: isMacOs
+      homebrew:
+        package:
+          - koekeishiya/formulae/yabai
+        state: head
