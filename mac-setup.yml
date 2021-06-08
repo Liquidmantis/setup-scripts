@@ -134,15 +134,7 @@
       homebrew:
         update_homebrew: true
 
-    - name: Install common Homebrew casks
-      homebrew_cask:
-        package:
-          - font-fira-code-nerd-font
-          - homebrew/cask-versions/powershell-preview
-        state: latest
-
-    - name: Install Homebrew packages from HEAD
-      when: isMacOs
+    - name: Install common Homebrew packages from HEAD
       homebrew:
         package:
           - neovim
@@ -169,19 +161,21 @@
           - zsh-syntax-highlighting
         state: latest
 
-    - name: Install Mac Homebrew casks 
-      when: isMacOs
-      homebrew_cask:
-        package:
-          - alacritty
-          - alfred
-          - hammerspoon
-          - karabiner-elements
-        state: latest
-
     - name: Install Mac Homebrew packages from HEAD
       when: isMacOs
       homebrew:
         package:
           - koekeishiya/formulae/yabai
         state: head
+
+    - name: Install Mac Homebrew casks
+      when: isMacOs
+      homebrew_cask:
+        package:
+          - alacritty
+          - alfred
+          - font-fira-code-nerd-font
+          - hammerspoon
+          - homebrew/cask-versions/powershell-preview
+          - karabiner-elements
+        state: latest
