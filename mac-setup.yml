@@ -137,7 +137,6 @@
     - name: Install common Homebrew casks
       homebrew_cask:
         package:
-          - alacritty
           - font-fira-code-nerd-font
           - homebrew/cask-versions/powershell-preview
         state: latest
