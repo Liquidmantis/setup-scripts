@@ -8,6 +8,11 @@
         path: ~/Dropbox
         state: directory
 
+    - name: Create config directory
+      file:
+        path: ~/.config
+        state: directory
+
     - name: Create notes directory
       file:
         path: ~/Dropbox/documents/notes
@@ -34,6 +39,11 @@
       git:
         repo: https://github.com/Liquidmantis/dotfiles
         dest: ~/Dropbox/git-home/dotfiles
+
+    - name: Clone vim packer repo
+      git:
+        repo: https://github.com/wbthomason/packer.nvim
+        dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
   # TODO: generate SSH key
   # TODO: upload SSH key to github
