@@ -189,3 +189,9 @@
           - homebrew/cask-versions/powershell-preview
           - karabiner-elements
         state: latest
+
+    - name: gimme da sshpass
+      homebrew:
+        package:
+          - hudochenkov/sshpass/sshpass
+        state: latest
