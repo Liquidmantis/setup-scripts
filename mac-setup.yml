@@ -145,6 +145,7 @@
         update_homebrew: true
 
     - name: Install common Homebrew packages from HEAD
+      when: isMacOs
       homebrew:
         package:
           - neovim

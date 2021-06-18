@@ -1,14 +1,22 @@
 #!/bin/bash
 
 echo "Checking if Homebrew is already installed..."
-which -s brew
+if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+which brew
 if [[ $? != 0 ]] ; then
   echo "Homebrew not found.  Installing..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+if [[ $(uname) == "Linux" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 echo "Checking if Ansible is already installed..."
-which -s ansible
+which ansible
 if [[ $? != 0 ]] ; then
   echo "Ansible not found.  Installing..."
   brew update && brew install ansible
