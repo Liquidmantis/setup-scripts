@@ -144,12 +144,12 @@
       homebrew:
         update_homebrew: true
 
-    - name: Install common Homebrew packages from HEAD
-      when: isMacOs
-      homebrew:
-        package:
-          - neovim
-        state: head
+    # - name: Install common Homebrew packages from HEAD
+    #   when: isMacOs
+    #   homebrew:
+    #     package:
+    #       - neovim
+    #     state: head
 
     - name: Install common Homebrew packages
       homebrew:
@@ -158,8 +158,10 @@
           - azure-cli
           - bash-completion
           - exa
+          - fzf
           - git
           - jq
+          - neovim
           - node
           - readline
           - starship 
