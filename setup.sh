@@ -26,4 +26,4 @@ echo "Installing/updating Ansible community.general modules..."
 ansible-galaxy collection verify community.general
 
 echo "Executing Ansible playbook"
-ansible-playbook mac-setup.yml
+ansible-playbook playbook.yml
