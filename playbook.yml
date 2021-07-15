@@ -88,6 +88,12 @@
         dest: ~/.config/nvim
         state: link
 
+    - name: symlink powershell directory
+      file:
+        src: "{{dotfiles}}/powershell"
+        dest: ~/.config/powershell
+        state: link
+
     - name: symlink starship directory
       file:
         src: "{{dotfiles}}/starship"
