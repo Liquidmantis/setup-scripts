@@ -157,6 +157,7 @@
           - ansible
           - azure-cli
           - bash-completion
+          - bat
           - exa
           - fzf
           - git
