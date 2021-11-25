@@ -164,6 +164,7 @@
           - azure-cli
           - bash-completion
           - bat
+          - code-minimap
           - exa
           - fzf
           - git
@@ -172,6 +173,7 @@
           - node
           - readline
           - starship 
+          - tldr
           - tmux
           - z
           - zsh
@@ -179,6 +181,7 @@
           - zsh-completions
           - zsh-history-substring-search
           - zsh-syntax-highlighting
+          - zsh-vi-mode
         state: latest
 
     - name: Install Mac Homebrew packages from HEAD
@@ -198,6 +201,7 @@
           - hammerspoon
           - homebrew/cask-versions/powershell-preview
           - karabiner-elements
+          - kitty
         state: latest
 
     - name: gimme da sshpass
