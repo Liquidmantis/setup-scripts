@@ -175,7 +175,7 @@
           - starship 
           - tldr
           - tmux
-          - z
+          - zoxide
           - zsh
           - zsh-autosuggestions
           - zsh-completions
@@ -197,7 +197,7 @@
         package:
           - alacritty
           - alfred
-          - font-fira-code-nerd-font
+          - homebrew/cask-fonts/font-fira-code-nerd-font
           - hammerspoon
           - homebrew/cask-versions/powershell-preview
           - karabiner-elements
