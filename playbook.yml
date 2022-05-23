@@ -39,11 +39,13 @@
       git:
         repo: https://github.com/Liquidmantis/dotfiles
         dest: ~/Dropbox/git-home/dotfiles
+        update: no
 
     - name: Clone vim packer repo
       git:
         repo: https://github.com/wbthomason/packer.nvim
         dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+        update: no
 
   # TODO: generate SSH key
   # TODO: upload SSH key to github
@@ -57,54 +59,35 @@
     isMacOs: ansible_facts['distribution'] == 'MacOSX'
 
   tasks:
-    - name: symlink alacritty directory
-      file:
-        src: "{{dotfiles}}/alacritty"
-        dest: ~/.config/alacritty
-        state: link
-
     - name: symlink gitconfig
       file:
         src: "{{dotfiles}}/git/gitconfig"
         dest: ~/.gitconfig
         state: link
 
-    - name: symlink hammerspoon directory
+    - name: symlink dot directories
       file:
-        src: "{{dotfiles}}/hammerspoon"
-        dest: ~/.hammerspoon
+        src: "{{dotfiles}}/{{item}}"
+        dest: "~/.{{item}}"
         state: link
+      loop:
+        - hammerspoon
 
-    - name: symlink karabiner directory
-      when: isMacOs
+    - name: symlink .config subdirectories
       file:
-        src: "{{dotfiles}}/karabiner"
-        dest: ~/.config/karabiner
+        src: "{{dotfiles}}/{{item}}"
+        dest: "~/.config/{{item}}"
         state: link
-
-    - name: symlink neovim directory
-      file:
-        src: "{{dotfiles}}/nvim"
-        dest: ~/.config/nvim
-        state: link
-
-    - name: symlink powershell directory
-      file:
-        src: "{{dotfiles}}/powershell"
-        dest: ~/.config/powershell
-        state: link
-
-    - name: symlink starship directory
-      file:
-        src: "{{dotfiles}}/starship"
-        dest: ~/.config/starship
-        state: link
-
-    - name: symlink tmux directory
-      file:
-        src: "{{dotfiles}}/tmux"
-        dest: ~/.config/tmux
-        state: link
+      loop:
+        - alacritty
+        - kitty
+        - karabiner
+        - nvim
+        - powershell
+        - starship
+        - tmux
+        - yabai
+        - zsh
 
     - name: symlink tmux.conf
       file:
@@ -112,24 +95,11 @@
         dest: ~/.tmux.conf
         state: link
 
-    - name: symlink yabai directory
-      when: isMacOs
-      file:
-        src: "{{dotfiles}}/yabai"
-        dest: ~/.config/yabai
-        state: link
-
     - name: symlink yabairc
       when: isMacOs
       file:
         src: ~/.config/yabai/yabairc
         dest: ~/.yabairc
-        state: link
-
-    - name: symlink zsh directory
-      file:
-        src: "{{dotfiles}}/zsh"
-        dest: ~/.config/zsh
         state: link
 
     - name: symlink zshrc
@@ -169,9 +139,11 @@
           - fzf
           - git
           - jq
+          - lua-language-server
           - neovim
           - node
           - readline
+          - ripgrep
           - starship 
           - tldr
           - tmux
@@ -200,6 +172,7 @@
           - homebrew/cask-fonts/font-fira-code-nerd-font
           - hammerspoon
           - homebrew/cask-versions/powershell-preview
+          - pastebot
           - karabiner-elements
           - kitty
         state: latest
