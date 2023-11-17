@@ -9,6 +9,7 @@ which brew
 if [[ $? != 0 ]] ; then
   echo "Homebrew not found.  Installing..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 if [[ $(uname) == "Linux" ]]; then

@@ -57,10 +57,16 @@
     isMacOs: ansible_facts['distribution'] == 'MacOSX'
 
   tasks:
-    - name: symlink alacritty directory
+    - name: symlink git-home
       file:
-        src: "{{dotfiles}}/alacritty"
-        dest: ~/.config/alacritty
+        src: ~/Library/CloudStorage/Dropbox/git-home
+        dest: ~/git-home
+        state: link
+
+    - name: symlink fzf directory
+      file:
+        src: "{{dotfiles}}/fzf"
+        dest: ~/config/fzf
         state: link
 
     - name: symlink gitconfig
@@ -80,6 +86,12 @@
       file:
         src: "{{dotfiles}}/karabiner"
         dest: ~/.config/karabiner
+        state: link
+
+    - name: symlink kitty directory
+      file:
+        src: "{{dotfiles}}/kitty"
+        dest: ~/.config/kitty
         state: link
 
     - name: symlink neovim directory
@@ -132,6 +144,12 @@
         dest: ~/.config/zsh
         state: link
 
+    - name: symlink zsh-abbr directory
+      file:
+        src: "{{dotfiles}}/zsh-abbr"
+        dest: ~/.config/zsh-abbr
+        state: link
+
     - name: symlink zshrc
       file:
         src: ~/.config/zsh/zshrc
@@ -150,12 +168,27 @@
       homebrew:
         update_homebrew: true
 
-    # - name: Install common Homebrew packages from HEAD
-    #   when: isMacOs
-    #   homebrew:
-    #     package:
-    #       - neovim
-    #     state: head
+    - name: Add HashiCorp cask
+      community.general.homebrew_tap:
+        name: hashicorp/tap
+        url: git@github.com:hashicorp/homebrew-tap.git
+
+    - name: Add Homebrew fonts cask
+      community.general.homebrew_tap:
+        name: homebrew/cask-fonts
+        url: git@github.com:Homebrew/homebrew-cask-fonts.git
+
+    - name: Install Homebrew casks
+      homebrew_cask:
+        package:
+          - bartender
+          - hammerspoon
+          - karabiner-elements
+          - kitty
+          - font-fira-code-nerd-font
+          - homebrew/cask-versions/powershell-preview
+          - raycast
+        state: latest
 
     - name: Install common Homebrew packages
       homebrew:
@@ -168,14 +201,18 @@
           - exa
           - fzf
           - git
+          - git
+          - golang
+          - hashicorp/tap/nomad
+          - hashicorp/tap/vault
           - jq
-          - neovim
           - node
+          - olets/tap/zsh-abbr
           - readline
           - starship 
           - tldr
           - tmux
-          - z
+          - zoxide
           - zsh
           - zsh-autosuggestions
           - zsh-completions
